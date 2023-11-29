@@ -69,11 +69,47 @@ class Booking(webdriver.Chrome):
             no_button.click()
         except:
             print('No element with "Dismiss sign in information".')
-            
+
         search_field = self.find_element(By.NAME, "ss")
         search_field.clear()
         search_field.send_keys(place_to_go)
         sleep(5)
-        first_result=self.find_element(By.CSS_SELECTOR,'div[data-testid="autocomplete-result"]')
+        first_result = self.find_element(
+            By.CSS_SELECTOR, 'div[data-testid="autocomplete-result"]'
+        )
         print(first_result.text)
         first_result.click()
+
+    def select_dates(self, check_in_date, check_out_date):
+        check_in_element = self.find_element(
+            By.CSS_SELECTOR, f'td > span[data-date="{check_in_date}"]'
+        )
+        check_in_element.click()
+
+        check_out_element = self.find_element(
+            By.CSS_SELECTOR, f'td > span[data-date="{check_out_date}"]'
+        )
+        check_out_element.click()
+
+    def select_adults(self, count=0):
+        selection_element = self.find_element(
+            By.CSS_SELECTOR, 'button[data-testid="occupancy-config"]'
+        )
+        selection_element.click()
+
+        while True:
+            decrease_adults_element = self.find_element(
+                By.CSS_SELECTOR,
+                'button[class="a83ed08757 c21c56c305 f38b6daa18 d691166b09 ab98298258 deab83296e bb803d8689 e91c91fa93"]',
+            )
+            decrease_adults_element.click()
+
+            # if the value of adults reaches 1 we should get out of while loop
+            adults_value_element = self.find_element(By.ID, "group_adults")
+            print(
+               adults_value_element.get_attribute("value")
+            )  # should give back the adult count
+
+            if adults_value_element.get_attribute("value") == "1":
+                print("in if statement")
+                break
