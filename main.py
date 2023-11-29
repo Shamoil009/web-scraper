@@ -10,5 +10,8 @@ with Booking() as bot:
     print("Existing...")
     # bot.change_currency(currency="USD")
     bot.select_place_to_go(place_to_go="New York")
-
+    bot.select_dates(check_in_date="2023-12-05", check_out_date="2023-12-24")
+    bot.select_adults()
+    
+    
 sleep(30)
