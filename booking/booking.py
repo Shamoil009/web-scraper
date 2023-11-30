@@ -13,7 +13,7 @@ class Booking(webdriver.Chrome):
         self.teardown = teardown
         os.environ["PATH"] += self.driver_path
         super(Booking, self).__init__()
-        self.implicitly_wait(15)
+        self.implicitly_wait(5)
         # self.maximize_window()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -106,10 +106,18 @@ class Booking(webdriver.Chrome):
 
             # if the value of adults reaches 1 we should get out of while loop
             adults_value_element = self.find_element(By.ID, "group_adults")
-            print(
-               adults_value_element.get_attribute("value")
+            adult_value = adults_value_element.get_attribute(
+                "value"
             )  # should give back the adult count
 
-            if adults_value_element.get_attribute("value") == "1":
-                print("in if statement")
+            if adult_value is not None and int(adult_value) == 1:
                 break
+
+        increate_button_element = self.find_element(
+            By.CSS_SELECTOR,
+            'button[class="a83ed08757 c21c56c305 f38b6daa18 d691166b09 ab98298258 deab83296e bb803d8689 f4d78af12a"]',
+        )
+
+        for i in range(count - 1):
+            increate_button_element.click()
+
