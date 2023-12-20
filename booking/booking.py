@@ -121,3 +121,12 @@ class Booking(webdriver.Chrome):
         for i in range(count - 1):
             increate_button_element.click()
 
+    def click_search(self):
+        self.find_element(
+            By.CSS_SELECTOR,
+            'button[class="a83ed08757 c21c56c305 a4c1805887 f671049264 d2529514af c082d89982 cceeb8986b"] > span[class="e4adce92df"]',
+        ).click()
+        #  self.find_element(
+        #     By.XPATH,
+        #     '//button[@type="submit" @class="a83ed08757 c21c56c305 a4c1805887 f671049264 d2529514af c082d89982 cceeb8986b"]',
+        # )
